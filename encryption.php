@@ -10,6 +10,7 @@ function encrypt($input)//pass the string to the function
     $output= base64_encode($ciphertext); //change to base64 format
     return $output;//return output
 }
+//function to decrypt an encrypted string
 function decrypt($input)//pass the string to the function
 {
     $key = pack('H*', "12345678901234567890123456789012");//change the key as you need but same as the key used to encrypt
