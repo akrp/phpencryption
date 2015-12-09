@@ -5,7 +5,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 	$string = $_POST['string'];
 	$estring = encrypt($string);
 	$dstring = decrypt($estring);
-	
+	if($string!="")
+	{
+		$myinput = "Entered String is : ".$string;
+		$einput = "Encrypted String is : ".$estring;
+		$dinput = "Decrypted String is : ".$dstring;
+	}
 }
 ?>
 <!DOCTYPE HTML>
