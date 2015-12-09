@@ -1,37 +1,55 @@
 # PHP Encrption
 PHP's mcrypt functions can be used to encrypt data, but it's not easy to use them correctly. So Here is a simple PHP API which makes this process more easier than ever. On passing a string to the function crypt() the string can be encrypted and similarly decrypt() is used to decrypt the encrypted string easily.
 
-It can be done through these steps:
-
-1. Import the encryption API to your .html file under <head> </head> tags.
-2. Save it as .php
-3. To encrypt pass a value to the function encrypt($string);
-4. To decrypt pass the decrypted string to decrypt($encodedstring);
-
-An Example:<br>
-1. This PHP encrypts the Content<br>
-2. Pass the value to PHP variable from HTML<br>
-3. Display the encrypted and decrypted string<br><br>
-<pre><?php<br>
-if ($_SERVER["REQUEST_METHOD"] == "POST")<br>
-{<br>
-	$string = $_POST['string'];<br>
-	$estring = encrypt($string);<br>
-	$dstring = decrypt($estring);<br>
-	if($string!="")<br>
-	{<br>
-		$myinput = "Entered String is : ".$string;<br>
-		$einput = "Encrypted String is : ".$estring;<br>
-		$dinput = "Decrypted String is : ".$dstring;<br>
-	}<br>
-}<br>
-?></pre>
-
-
+### How to use PHP Encryption
+1. Pass the value to php from html form
 <pre>
-type = "text" name = "string"
+input type="text" name="string"</pre>
+
+2. Function to encrypt a string
+<pre>
+//function to encrypt a string
+function encrypt($input)//pass the string to the function 
+{
+    $key = pack('H*', "12345678901234567890123456789012");//change the key as you need
+    $ivs = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC); //get iv size
+    $iv = mcrypt_create_iv($ivs, MCRYPT_RAND);//create an iv random value
+    $ciphertext = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key,$input, MCRYPT_MODE_CBC, $iv); //encrypt the string
+    $ciphertext = $iv . $ciphertext; //add with created iv value
+    $output= base64_encode($ciphertext); //change to base64 format
+    return $output;//return output
+}
 </pre>
-	<?php echo $myinput ?>
-	<?php echo $einput ?>
-	<?php echo $dinput ?>
- 
+
+3. Function to decrypt a string
+<pre>
+//function to decrypt an encrypted string
+function decrypt($input)//pass the string to the function
+{
+    $key = pack('H*', "12345678901234567890123456789012");//change the key as you need but same as the key used to encrypt
+    $ivs = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);//get iv size
+    $iv = mcrypt_create_iv($ivs, MCRYPT_RAND);//create an iv random value
+    $ciphertext_dec = base64_decode($input);//initially decode string from base64 format
+    $iv_dec = substr($ciphertext_dec, 0, $ivs);//split the iv random value from the string
+    $ciphertext_dec = substr($ciphertext_dec, $ivs); //split the iv random value from the string
+    $output = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key,$ciphertext_dec, MCRYPT_MODE_CBC, $iv_dec); //decrypt the string
+    return $output;//return output
+}
+</pre>
+
+4. Use this in 'index.php'
+<pre>
+include("encryption.php");
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+{
+	$string = $_POST['string'];
+	$estring = encrypt($string);
+	$dstring = decrypt($estring);
+	if($string!="")
+	{
+		$myinput = "Entered String is : ".$string;
+		$einput = "Encrypted String is : ".$estring;
+		$dinput = "Decrypted String is : ".$dstring;
+	}
+}
+</pre>
