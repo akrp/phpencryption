@@ -1,5 +1,5 @@
 <?php
-include("https://raw.githubusercontent.com/akrp/phpencryption/master/encryption.php");
+include("encryption.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
 	$string = $_POST['string'];
