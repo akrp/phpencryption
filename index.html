@@ -24,6 +24,14 @@
 
 <p>PHP's mcrypt functions can be used to encrypt data, but it's not easy to use them correctly. So Here is a simple PHP API which makes this process more easier than ever. On passing a string to the function crypt() the string can be encrypted and similarly decrypt() is used to decrypt the encrypted string easily.</p>
 
+<pre>
+require_once('encryption.php');
+
+$encrypted_string = encrypt('Hello World!');
+
+$decrypted_string = decrypt($encrypted_string);
+</pre>
+
 <h3>
 <a id="how-to-use-php-encryption" class="anchor" href="#how-to-use-php-encryption" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use PHP Encryption</h3>
 
