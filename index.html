@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>PHP Encryption by akrp</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>PHP Encryption</h1>
+        <h2>A simple PHP API to encrypt and decrypt a string on any web app.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/akrp/phpencryption/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/akrp/phpencryption/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/akrp/phpencryption" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h3>
+<a id="php-encryption" class="anchor" href="#php-encryption" aria-hidden="true"><span class="octicon octicon-link"></span></a>PHP Encryption.</h3>
+
+<p>PHP's mcrypt functions can be used to encrypt data, but it's not easy to use them correctly. So Here is a simple PHP API which makes this process more easier than ever. On passing a string to the function crypt() the string can be encrypted and similarly decrypt() is used to decrypt the encrypted string easily.</p>
+
+<h3>
+<a id="how-to-use-php-encryption" class="anchor" href="#how-to-use-php-encryption" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use PHP Encryption</h3>
+
+<ol>
+<li>
+<p>Pass the value to php from html form</p>
+
+<pre>
+input type="text" name="string"</pre>
+</li>
+<li>
+<p>Function to encrypt a string</p>
+
+<pre>
+//function to encrypt a string
+function encrypt($input)//pass the string to the function 
+{
+$key = pack('H*', "12345678901234567890123456789012");//change the key as you need
+$ivs = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC); //get iv size
+$iv = mcrypt_create_iv($ivs, MCRYPT_RAND);//create an iv random value
+$ciphertext = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key,$input, MCRYPT_MODE_CBC, $iv); //encrypt the string
+$ciphertext = $iv . $ciphertext; //add with created iv value
+$output= base64_encode($ciphertext); //change to base64 format
+return $output;//return output
+}
+</pre>
+</li>
+<li>
+<p>Function to decrypt a string</p>
+
+<pre>
+//function to decrypt an encrypted string
+function decrypt($input)//pass the string to the function
+{
+$key = pack('H*', "12345678901234567890123456789012");//change the key as you need but same as the key used to encrypt
+$ivs = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);//get iv size
+$iv = mcrypt_create_iv($ivs, MCRYPT_RAND);//create an iv random value
+$ciphertext_dec = base64_decode($input);//initially decode string from base64 format
+$iv_dec = substr($ciphertext_dec, 0, $ivs);//split the iv random value from the string
+$ciphertext_dec = substr($ciphertext_dec, $ivs); //split the iv random value from the string
+$output = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key,$ciphertext_dec, MCRYPT_MODE_CBC, $iv_dec); //decrypt the string
+return $output;//return output
+}
+</pre>
+</li>
+<li>
+<p>Use this in 'index.php'</p>
+
+<pre>
+include("encryption.php");
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+{
+$string = $_POST['string'];
+$estring = encrypt($string);
+$dstring = decrypt($estring);
+if($string!="")
+{
+    $myinput = "Entered String is : ".$string;
+    $einput = "Encrypted String is : ".$estring;
+    $dinput = "Decrypted String is : ".$dstring;
+}
+}
+</pre>
+</li>
+</ol>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
