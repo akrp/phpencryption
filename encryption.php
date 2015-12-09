@@ -1,7 +1,7 @@
 <?php
 function encrypt($input)
 {
-	$key = pack('H*', "12345678901234567890123456789012");
+    $key = pack('H*', "12345678901234567890123456789012");
     $ivs = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
     $iv = mcrypt_create_iv($ivs, MCRYPT_RAND);
     $ciphertext = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key,$input, MCRYPT_MODE_CBC, $iv);
@@ -11,7 +11,7 @@ function encrypt($input)
 }
 function decrypt($input)
 {
-	$key = pack('H*', "12345678901234567890123456789012"");
+    $key = pack('H*', "12345678901234567890123456789012"");
     $ivs = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
     $iv = mcrypt_create_iv($ivs, MCRYPT_RAND);
     $ciphertext_dec = base64_decode($input);
