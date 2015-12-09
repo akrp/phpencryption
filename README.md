@@ -34,3 +34,4 @@ type = "text" name = "string"
 	<?php echo $myinput ?>
 	<?php echo $einput ?>
 	<?php echo $dinput ?>
+ 
