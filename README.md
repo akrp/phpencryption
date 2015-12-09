@@ -1,5 +1,5 @@
 # PHP Encrption
-This project helps to encrypt and decrypt the string using mcrypt
+PHP's mcrypt functions can be used to encrypt data, but it's not easy to use them correctly. So Here is a simple PHP API which makes this process more easier than ever. On passing a string to the function crypt() the string can be encrypted and similarly decrypt() is used to decrypt the encrypted string easily.
 
 It can be done through these steps:
 
