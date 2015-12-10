@@ -35,41 +35,33 @@ $decrypted_string = decrypt($encrypted_string);
 <h3>
 <a id="how-to-use-php-encryption" class="anchor" href="#how-to-use-php-encryption" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use PHP Encryption</h3>
 
-<ol>
-<li>
-<p>Include API (download from github)</p>
+<p>1.Include API (download from github)</p>
 
 <pre>
 include('encryption.php');
 </pre>
-</li>
-<li>
-<p>Pass the value to php from html form or directly pass the value to the function</p>
+
+<p>2.Pass the value to php from html form or directly pass the value to the function</p>
 
 <pre>
 input type="text" name="string"</pre>
-</li>
-</ol>
 
-<p>$encrypted_string = encrypt($_POST['string']);</p>
-
+$encrypted_string = encrypt($_POST['string']);
 <pre>
 $encrypted_string = encrypt('Hello World!');</pre>
 
-3. To display Encrypted String
+3.To display Encrypted String
 <pre>
 echo $encrypted_string;
 </pre>
 
-<ol>
-<li>To decrypt a string
-<pre>
-$decrypted_string = decrypt($encrypted_string);</pre>
-</li>
-</ol>
+<p>4.To decrypt a string</p>
 
-<p>echo $decrypted_string;
-</p>
+<pre>
+$decrypted_string = decrypt($encrypted_string);
+
+echo $decrypted_string;
+</pre>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/akrp/phpencryption">PHP Encryption</a> is maintained by <a href="https://github.com/akrp">akrp</a>.</span>
