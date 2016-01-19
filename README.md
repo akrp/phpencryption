@@ -53,3 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 	}
 }
 </pre>
+
+
+#contribute
+Contributions to phpencryption are welcome. Here is how you can contribute to phpencryption:
+
+<a href='https://github.com/arunkumarpalaniappan/phpencryption/issues'> Submit bugs</a> and verify issues.
+
+<a href='https://github.com/arunkumarpalaniappan/phpencryption/pulls'> Submit pull requests</a>  for bug fixes and features and discuss existing proposals.
